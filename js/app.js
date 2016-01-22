@@ -2,9 +2,14 @@
 var Enemy = function(posx,posy) {
     var obj = Object.create(Enemy.prototype);
     // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+    
+    //Save off instance 
+    obj.posx = posx;
+    obj.posy = posy;
+
     obj.x = posx;
     obj.y = posy;
+    
     obj.speed = 50;
     obj.sprite = 'images/enemy-bug.png';
     // The image/sprite for our enemies, this uses
@@ -17,6 +22,11 @@ var Enemy = function(posx,posy) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (this.speed * dt);
+
+    //Chack to see if the enemy has gone off screen left or right
+    if(this.x > 535 || this.x < -35){
+        this.x = this.posx;
+    }
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -46,10 +56,9 @@ Player.prototype.update = function(dt) {
         player.x = 300;
         player.y = 300;
     }
-
+    //ToDo: Collision detection goes here
     for(var i = 0; i < allEnemies.length; i++){
 
-        console.log("check");
         if(player.x){
 
         }

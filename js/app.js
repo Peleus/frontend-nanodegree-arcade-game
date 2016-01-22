@@ -9,8 +9,8 @@ var Enemy = function(posx,posy) {
 
     obj.x = posx;
     obj.y = posy;
-    
-    obj.speed = 50;
+    // Generate a random speed for the instance
+    obj.speed = Math.floor(Math.random() * 100 ) + 50;
     obj.sprite = 'images/enemy-bug.png';
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -42,6 +42,9 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function(posx,posy){
     var obj = Object.create(Player.prototype);
+    obj.startx = posx;//Start x of player
+    obj.starty = posy;//Starty of player
+
     obj.x = posx;
     obj.y = posy;
     obj.sprite = 'images/char-boy.png';
@@ -51,10 +54,10 @@ var Player = function(posx,posy){
 
 Player.prototype.update = function(dt) {
     
-    //(ToDo: Player win condition)
+    //ToDo: Player win condition. This works but could be better.
     if(player.y <20){
-        player.x = 300;
-        player.y = 300;
+        player.x = player.startx;
+        player.y = player.starty;
     }
     //ToDo: Collision detection goes here
     for(var i = 0; i < allEnemies.length; i++){
@@ -70,14 +73,15 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(code) {
+    
     //Takes in Code and moves the player
-    if (code === 'left'){
+    if (code === 'left' & player.x > 25){
         player.x = player.x - 92;
     } else if(code === 'up'){
         player.y = player.y - 92;
-    } else if(code === 'right'){
+    } else if(code === 'right' & player.x < 390){
         player.x = player.x + 92;
-    } else if(code === 'down'){
+    } else if(code === 'down' & player.y < 390){
         player.y = player.y + 92;
     }
 };
@@ -86,14 +90,20 @@ Player.prototype.handleInput = function(code) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var enemy1 = Enemy(100,135);
-var enemy2 = Enemy(50,300);
+var enemy1 = Enemy(-35,135);
+var enemy2 = Enemy(-35,300);
+var enemy3 = Enemy(-35,250);
+var enemy4 = Enemy(-35,75);
+var enemy5 = Enemy(-35,275);
 var allEnemies = [];
 
 allEnemies.push(enemy1);
 allEnemies.push(enemy2);
+allEnemies.push(enemy3);
+allEnemies.push(enemy4);
+allEnemies.push(enemy5);
 
-var player = Player(300,300); 
+var player = Player(300,375); 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {

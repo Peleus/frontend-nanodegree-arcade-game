@@ -1,6 +1,20 @@
-frontend-nanodegree-arcade-game
-===============================
+* Prototype Canvis Arcade Game
 
-Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+** About
+
+This is a minigame prototype similar to Frogger. My role was to provide functionality for the player and enemies as well as set up the board. The majority of my work is in the app.js file. The engine and graphics were provided.
+
+** Usage
+
+The game can be run by loading the index.html file.
+
+Use the arrow keys to move the character to the water.
+
+** Next Steps
+
+- Set up the game reset loop.
+- Provide a UI to start a new game
+- Player score
+- Add pickups to the score.
+- Polish enemy spawning and speed 

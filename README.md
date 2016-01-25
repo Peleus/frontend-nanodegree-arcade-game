@@ -1,4 +1,4 @@
-# Prototype Canvis Arcade Game
+# Prototype Canvas Arcade Game
 
 
 ## About

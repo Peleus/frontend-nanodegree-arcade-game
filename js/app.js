@@ -17,7 +17,7 @@ var Enemy = function(posx, posy) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    var screenEdge_Right = 535;
+    var screenEdgeRight = 535;
     var screenEdgeLeft = -35;
 
     //Move feature

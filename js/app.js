@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(posx,posy) {
+var Enemy = function(posx, posy) {
     var obj = Object.create(Enemy.prototype);
     //Save off instance start position of enemy
     obj.startX = posx;
@@ -8,7 +8,7 @@ var Enemy = function(posx,posy) {
     obj.x = posx;
     obj.y = posy;
     // Generate a random speed for the instance of the enemy
-    obj.speed = Math.floor(Math.random() * 300 ) + 75;
+    obj.speed = Math.floor(Math.random() * 300) + 75;
     // The image/sprite for our enemies
     obj.sprite = 'images/enemy-bug.png';
     return obj;
@@ -17,14 +17,14 @@ var Enemy = function(posx,posy) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    var screenEdgeRight = 535;
+    var screenEdge_Right = 535;
     var screenEdgeLeft = -35;
 
     //Move feature
     this.x = this.x + (this.speed * dt);
 
     //Chack to see if the enemy has gone off screen left or right
-    if(this.x > screenEdgeRight || this.x < screenEdgeLeft){
+    if (this.x > screenEdgeRight || this.x < screenEdgeLeft) {
         this.x = this.startX;
     }
 };
@@ -35,10 +35,10 @@ Enemy.prototype.render = function() {
 };
 
 // Player class
-var Player = function(posx,posy){
+var Player = function(posx, posy) {
     var obj = Object.create(Player.prototype);
-    obj.startX = posx;//Start x of player
-    obj.startY = posy;//Start y of player
+    obj.startX = posx; //Start x of player
+    obj.startY = posy; //Start y of player
 
     // Set local pos vars
     obj.x = posx;
@@ -51,25 +51,25 @@ var Player = function(posx,posy){
 Player.prototype.update = function(dt) {
     // Distance from player to collide with enemies
     var collisionRange = 55;
-    
-    //ToDo: Player win condition. This works but could be better.
-    if(player.y <20){
+
+    //TODO: Player win condition. This works but could be better.
+    if (player.y < 20) {
         //Reset the player
         player.reset();
     }
     //Collision detection for enemies
-    for(var i = 0; i < allEnemies.length; i++){
+    for (var i = 0; i < allEnemies.length; i++) {
         var targetEnemy = allEnemies[i];
         var colDist = Math.hypot(targetEnemy.x - player.x, targetEnemy.y - player.y);
-        if(colDist < collisionRange){
+        if (colDist < collisionRange) {
             //Reset the player
-            //Todo: This is where I will reset to a new game after lives have been used up
+            //TODO: This is where I will reset to a new game after lives have been used up.
             player.reset();
         }
     }
 };
 //Player reset function
-Player.prototype.reset = function(){
+Player.prototype.reset = function() {
     // Reset to start positions
     player.x = player.startX;
     player.y = player.startY;
@@ -81,25 +81,25 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(code) {
-    
+
     //Takes in Code and moves the player
-    if (code === 'left' & player.x > 25){
+    if (code === 'left' & player.x > 25) {
         player.x = player.x - 101;
-    } else if(code === 'up'){
+    } else if (code === 'up') {
         player.y = player.y - 80;
-    } else if(code === 'right' & player.x < 390){
+    } else if (code === 'right' & player.x < 390) {
         player.x = player.x + 101;
-    } else if(code === 'down' & player.y < 370){
+    } else if (code === 'down' & player.y < 370) {
         player.y = player.y + 80;
     }
 };
 
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = Enemy(-35,135);
-var enemy2 = Enemy(-35,305);
-var enemy3 = Enemy(-35,220);
-var enemy4 = Enemy(-35,55);
+var enemy1 = Enemy(-35, 135);
+var enemy2 = Enemy(-35, 305);
+var enemy3 = Enemy(-35, 220);
+var enemy4 = Enemy(-35, 55);
 var allEnemies = [];
 
 allEnemies.push(enemy1);
@@ -107,7 +107,7 @@ allEnemies.push(enemy2);
 allEnemies.push(enemy3);
 allEnemies.push(enemy4);
 
-var player = Player(300,375); 
+var player = Player(300, 375);
 // This listens for key presses and sends the keys to
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {

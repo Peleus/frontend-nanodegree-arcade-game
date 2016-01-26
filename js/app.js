@@ -53,26 +53,26 @@ Player.prototype.update = function(dt) {
     var collisionRange = 55;
 
     //TODO: Player win condition. This works but could be better.
-    if (player.y < 20) {
+    if (this.y < 20) {
         //Reset the player
-        player.reset();
+        this.reset();
     }
     //Collision detection for enemies
-    for (var i = 0; i < allEnemies.length; i++) {
-        var targetEnemy = allEnemies[i];
-        var colDist = Math.hypot(targetEnemy.x - player.x, targetEnemy.y - player.y);
+    for (var i = 0, len = app.allEnemies.length; i < len; i++) {
+        var targetEnemy = app.allEnemies[i];
+        var colDist = Math.hypot(targetEnemy.x - this.x, targetEnemy.y - this.y);
         if (colDist < collisionRange) {
             //Reset the player
             //TODO: This is where I will reset to a new game after lives have been used up.
-            player.reset();
+            this.reset();
         }
     }
 };
 //Player reset function
 Player.prototype.reset = function() {
     // Reset to start positions
-    player.x = player.startX;
-    player.y = player.startY;
+    this.x = this.startX;
+    this.y = this.startY;
 
 };
 //Render the player
@@ -83,31 +83,38 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(code) {
 
     //Takes in Code and moves the player
-    if (code === 'left' & player.x > 25) {
-        player.x = player.x - 101;
+    if (code === 'left' & this.x > 25) {
+        this.x = this.x - 101;
     } else if (code === 'up') {
-        player.y = player.y - 80;
-    } else if (code === 'right' & player.x < 390) {
-        player.x = player.x + 101;
-    } else if (code === 'down' & player.y < 370) {
-        player.y = player.y + 80;
+        this.y = this.y - 80;
+    } else if (code === 'right' & this.x < 390) {
+        this.x = this.x + 101;
+    } else if (code === 'down' & this.y < 370) {
+        this.y = this.y + 80;
     }
 };
 
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = Enemy(-35, 135);
-var enemy2 = Enemy(-35, 305);
-var enemy3 = Enemy(-35, 220);
-var enemy4 = Enemy(-35, 55);
-var allEnemies = [];
+var app = app || {};
 
-allEnemies.push(enemy1);
-allEnemies.push(enemy2);
-allEnemies.push(enemy3);
-allEnemies.push(enemy4);
+app.player = Player(300, 375);
 
-var player = Player(300, 375);
+app.allEnemies = [];
+
+app.enemy1 = Enemy(-35, 135);
+app.enemy2 = Enemy(-35, 305);
+app.enemy3 = Enemy(-35, 220);
+app.enemy4 = Enemy(-35, 55);
+
+app.allEnemies.push(app.enemy1);
+app.allEnemies.push(app.enemy2);
+app.allEnemies.push(app.enemy3);
+app.allEnemies.push(app.enemy4);
+
+app.globalFunction = function(){};
+
+
 // This listens for key presses and sends the keys to
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
@@ -118,5 +125,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    app.player.handleInput(allowedKeys[e.keyCode]);
 });
